@@ -1,0 +1,22 @@
+.cartTable
+{
+	margin-bottom: 0 !important;
+}
+.cartTable td, .cartTable th, .orderTotals td
+{
+	border-top: none !important;
+	border-bottom: none;
+
+}
+.cartImg
+{
+	height: 75px;
+}
+.cartRight
+{
+	border-left: 1px solid #dbdbdb;
+}
+.borderBottom
+{
+	border-bottom: 1px solid #afafaf !important;
+}

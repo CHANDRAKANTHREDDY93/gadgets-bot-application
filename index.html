@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html ng-app="gadgets">
+	<head>
+		<title>Gadgets Bot</title>
+		<meta charset="utf-8">
+
+		<link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+
+
+		<script src="./node_modules/jquery/dist/jquery.min.js"></script>
+		<script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="./node_modules/angular/angular.min.js"></script>
+		<script src="./node_modules/angular-route/angular-route.min.js"></script>
+
+		<!--custom styling -->
+		<link rel="stylesheet" href="./public/styles/header.css">
+		<link rel="stylesheet" href="./public/styles/phone.css">
+		<link rel="stylesheet" href="./public/styles/cart.css">
+
+		<!--custom scripts-->
+		<script type="text/javascript" src="./public/app.js"></script>
+		<script type="text/javascript" src="./public/scripts/headerController.js"></script>
+
+		<script type="text/javascript" src="./public/scripts/homeController.js"></script>
+		<script type="text/javascript" src="./public/scripts/phoneController.js"></script>
+		<script type="text/javascript" src="./public/scripts/accController.js"></script>
+		<script type="text/javascript" src="./public/scripts/cartController.js"></script>
+		<script type="text/javascript" src="./public/services/phoneService.js"></script>
+
+
+	</head>
+	<body class="container-fluid" ng-controller="headerController">
+
+		<div class="row header">
+			<nav class="navbar navbar-inverse">
+				<div class="container-fluid">
+					<!-- Brand and toggle get grouped for better mobile display -->
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" href="#">{{appName}}</a>
+					</div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav menu-items">
+			<li ng-class="{active : activeNav === 'home'}" ng-click="changeNav('home')"><a href="/"><i class="glyphicon glyphicon-home"></i> HOME </a></li>
+			<li ng-class="{active : activeNav === 'phone'}" ng-click="changeNav('phone')"><a href="/#!/phone"><i class="glyphicon glyphicon-phone"></i> PHONE</a></li>
+			<!--<li class="dropdown">
+			  <a href="#" class="dropdown-toggle glyphicon glyphicon-folder-open" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">PRODUCTS<span class="caret"></span></a>
+			  <ul class="dropdown-menu">
+			    <li><a href="/#!/phone">PHONES</a></li>
+			    <li><a href="#">TABLETS</a></li>
+			    <li><a href="#">LAPTOPS</a></li>
+			  </ul>
+			</li>
+			<li class="active"><a href="/#!/accessories" class="glyphicon glyphicon-headphones">ACCESSORIES</a></li>-->
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+			<li ng-class="{active : activeNav === 'cart'}" ng-click="changeNav('cart')"><a href="#!/cart"><i class="glyphicon glyphicon-shopping-cart"></i></a></li>
+
+			</ul>
+	
+			</div><!-- /.navbar-collapse -->
+			</div><!-- /.container-fluid -->
+			</nav>
+			
+		</div>
+		<div class="container" ng-view></div>
+	</body>
+</html>

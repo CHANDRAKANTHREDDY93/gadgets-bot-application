@@ -1,1 +1,1 @@
-# gadgets-bot-application
+# Gadgets-app-with-bot-feature
