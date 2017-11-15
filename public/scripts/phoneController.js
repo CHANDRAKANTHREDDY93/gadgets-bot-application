@@ -2,7 +2,7 @@ var app = angular.module("gadgets");
 
 app.controller("phoneController", function($scope, phoneService, $window, $timeout){
 	var init = function(){
-		$scope.phQty = 1;
+
 		var phones = phoneService.getPhones();
 		phones.then(function(res){
 			$scope.phones =res.data;
@@ -33,7 +33,6 @@ app.controller("phoneController", function($scope, phoneService, $window, $timeo
 	{
 		setTimeout(function () {
             $window.location= '#!/cart';
-
         }, 1000);
         $scope.$emit('changeUrl', 'cart');
 	};
