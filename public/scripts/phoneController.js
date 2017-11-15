@@ -8,12 +8,12 @@ app.controller("phoneController", function($scope, phoneService, $window, $timeo
 			$scope.phones =res.data;
 		});
 		$scope.quantities = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-	}	
+	};
 	
 	$scope.selectPhone= function(phone)
 	{
 		$scope.phoneDetails = phone;
-	}
+	};
 
 	$scope.addToCart = function(phoneDetails, quantity)
 	{
@@ -27,16 +27,16 @@ app.controller("phoneController", function($scope, phoneService, $window, $timeo
 		};
 		phoneService.setCart(obj);
 
-	}
+	};
 
 	$scope.goToCart = function()
 	{
-		$window.location= '#!/cart';
-		$('#confirmModal').close();
-		//$window.location= '#!/cart';
+		setTimeout(function () {
+            $window.location= '#!/cart';
 
-		 //$location.path('#!/cart');
-	}
+        }, 1000);
+        $scope.$emit('changeUrl', 'cart');
+	};
 
 	init();					//calling function
 });

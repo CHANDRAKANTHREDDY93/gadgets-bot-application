@@ -59,7 +59,7 @@
 					  <div class="form-group">
 					    <label class="col-sm-6 control-label">QUANTITY :</label>
 					    <div class="col-sm-6">
-					        <select class="form-control" ng-model="phQty" ng-options="quantity for quantity in quantities track by $index">
+					        <select class="form-control" ng-init="phQty = quantities[0]" ng-model="phQty" ng-options="quantity for quantity in quantities">
 
 				      	    </select>
 					    </div>
@@ -131,7 +131,7 @@
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Yes</button>
-	        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="goToCart()">Go to cart</button>
+	        <button type="button" class="btn btn-primary" data-toggle="modal" data-dismiss="modal" ng-click="goToCart()">Go to cart</button>
 	      </div>
 	    </div><!-- /.modal-content -->
 	  </div><!-- /.modal-dialog -->

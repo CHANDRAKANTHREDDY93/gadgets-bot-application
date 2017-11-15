@@ -19,6 +19,11 @@ app.controller("headerController", function($scope, $location){
 	$scope.navChange = function(nav)
 	{
 		$scope.activeNav = nav;
-	}
+	};
+
+	$scope.$on('changeUrl', function(event, data){
+		console.log(data);
+		$scope.navChange(data);
+	});
 
 });

@@ -6,6 +6,7 @@ app.controller("cartController", function($scope, phoneService)
 	var init = function()
 	{
 		$scope.cart = phoneService.getCart();
+		$scope.isPlaced = false;
 
 		$scope.subTotal =0;
 		$scope.shipping = 6;
@@ -19,13 +20,18 @@ app.controller("cartController", function($scope, phoneService)
 			$scope.estimatedTax = ($scope.totalBTax * 6.8) /100;
 			$scope.orderTotal = $scope.estimatedTax + $scope.totalBTax;
 		}
-	}
+	};
 	init();
 
 	$scope.deleteItem = function(item)
 	{
 		phoneService.deleteCartItem(item);
 		init();
+	};
+
+	$scope.placeOrder = function(){
+		$scope.isPlaced = true;
+        phoneService.emptyCart();
 	}
 
 });

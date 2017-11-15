@@ -3,11 +3,12 @@
 		<h3><b>Shopping Cart</b></h3>
 		<hr>
 	</div>
-	<div class="col-xs-12" ng-if="cart.length == 0">
+	<div class="col-xs-12" ng-if="cart.length == 0 && !isPlaced">
 		<h4>Your shopping cart is empty.</h4>
 	</div>
 	<div class="col-xs-12" ng-if="cart.length > 0">
 		<div class="col-xs-7">
+			<h4 ng-if="isPlaced"><i class="glyphicon glyphicon-ok pos"></i> Your order has been successfully placed. Below items have been placed:</h4>
 			<div class="panel panel-default" ng-repeat="item in cart">
 		  		<div class="panel-body">
 			 	  	<table class="table cartTable">
@@ -20,14 +21,14 @@
 			 	  				<td class="text-center text-muted">Phone</td>
 			 	  				<td class="text-center text-muted">Price</td>
 			 	  				<td class="text-center text-muted">Quantity</td>
-			 	  				<td class="text-center text-muted">Remove</td>
+			 	  				<td class="text-center text-muted" ng-if="!isPlaced">Remove</td>
 			 	  			</tr>
 			 	  			<tr>
 			 	  				<td class="text-center"><b>{{item.brand}}</b></td>
 			 	  				<td class="text-center"><b>{{item.phone}}</b></td>
 			 	  				<td class="text-center"><b>{{item.price | currency}}</b></td>
 			 	  				<td class="text-center"><b>{{item.qty}}</b></td>
-			 	  				<td class="text-center">
+			 	  				<td class="text-center" ng-if="!isPlaced">
 			 	  					<a href="" ng-click="deleteItem(item)">Delete</a>
 			 	  				</td>
 			 	  			</tr>
@@ -36,8 +37,8 @@
 			  	</div>
 			</div>
 		</div>
-		<div class="col-xs-5 cartRight well">
-			<button type="button" class="btn btn-success btn-lg btn-block">Place your order</button>
+		<div class="col-xs-5 cartRight well" ng-if="!isPlaced">
+			<button type="button" class="btn btn-success btn-lg btn-block" ng-click="placeOrder()">Place your order</button>
 			<hr>
 			<h4><b>Order Summary</b></h4>
 			<table class="table orderTotals">
@@ -64,5 +65,9 @@
 			</table>
 		</div>
 	</div>
+
+	<!--<div class="col-xs-12" ng-if="isPlaced">-->
+		<!--<h4><i class="glyphicon glyphicon-ok pos"></i> Your order has been successfully placed</h4>-->
+	<!--</div>-->
 	
 </div>
