@@ -346,7 +346,7 @@ var AddItemsToCartList = function(brand, phone, price, image, qty, sender_id) {
 var goToCart = function(list){
 
     var dt = new Date();
-    var utcDate = dt.utcDate();
+    var utcDate = dt.getTime();
 
     var subTotal = 0;
 
@@ -394,9 +394,9 @@ var goToCart = function(list){
                     "country":"US"
                 },
                 "summary":{
-                    "subtotal":75.00,
-                    "shipping_cost":4.95,
-                    "total_tax":6.19,
+                    "subtotal":subTotal,
+                    "shipping_cost":shipping_cost,
+                    "total_tax":total_tax,
                     "total_cost":56.14
                 },
                 "adjustments":[
