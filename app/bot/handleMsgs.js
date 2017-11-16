@@ -168,11 +168,11 @@ var getBrandPhones = function(title, sender_psid) {
                         {
                             "type":"postback",
                             "title":"View Details",
-                            "payload":"DEVELOPER_DEFINED_PAYLOAD"
+                            "payload":"VIEW_DETAILS_"+phone.brand + '_' + phone.phone
                         },{
                             "type":"postback",
                             "title":"Buy",
-                            "payload":"DEVELOPER_DEFINED_PAYLOAD"
+                            "payload":"BUY_PHONE_"+phone.brand + '_' + phone.phone
                         },
                         {
                             "type":"postback",
