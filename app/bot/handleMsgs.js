@@ -78,17 +78,17 @@ var getResponse = function(text) {
             "quick_replies":[
                 {
                     "content_type":"text",
-                    "title":"Apple",
+                    "title":"APPLE",
                     "payload":"PHONE_PAYLOAD",
                 },
                 {
                     "content_type":"text",
-                    "title":"Blackberry",
+                    "title":"BLACKBERRY",
                     "payload":"PHONE_PAYLOAD"
                 },
                 {
                     "content_type":"text",
-                    "title":"Google",
+                    "title":"GOOGLE",
                     "payload":"PHONE_PAYLOAD"
                 },
                 {
@@ -98,17 +98,17 @@ var getResponse = function(text) {
                 },
                 {
                     "content_type":"text",
-                    "title":"Motorolla",
+                    "title":"MOTOROLLA",
                     "payload":"PHONE_PAYLOAD"
                 },
                 {
                     "content_type":"text",
-                    "title":"Samsung",
+                    "title":"SAMSUNG",
                     "payload":"PHONE_PAYLOAD"
                 },
                 {
                     "content_type":"text",
-                    "title":"Sony",
+                    "title":"SONY",
                     "payload":"PHONE_PAYLOAD"
                 }
             ]
@@ -146,30 +146,51 @@ var getResponse = function(text) {
 }
 
 var getBrandPhones = function(title) {
-    console.log("=======Inside Get Brand Phones function======");
-
-
-    // direct way
-    // client.get("https://gadgets-bot.herokuapp.com/api/getPhones", function (data, response) {
-    //     // parsed response body as js object
-    //     console.log(data);
-    //     // raw response
-    //     console.log(response);
-    //     console.log("=======GET RESPONSE DIRECT======");
-    // });
+    var selectedPhones = [];
 
     // registering remote methods
     client.registerMethod("jsonMethod", "https://gadgets-bot.herokuapp.com/api/getPhones", "GET");
 
     client.methods.jsonMethod(function (data, response) {
-        // parsed response body as js object
-        console.log("=======GET RESPONSE======");
-        console.log(data);
-        console.log("=======GET DATA END======");
-        // raw response
-        console.log(response);
-        console.log("=======GET RESPONSE END======");
+        data.forEach(function(phone){
+            if(phone.brand === title){
+                var obj = {
+                    "title":phone.brand + ' ' + phone.phone,
+                    "image_url":"https://gadgets-bot.herokuapp.com/public/images/" + phone.image,
+                    "subtitle":"Price : $" + phone.price,
+                    "buttons":[
+                        {
+                            "type":"postback",
+                            "title":"View Details",
+                            "payload":"DEVELOPER_DEFINED_PAYLOAD"
+                        },{
+                            "type":"postback",
+                            "title":"Buy",
+                            "payload":"DEVELOPER_DEFINED_PAYLOAD"
+                        }
+                    ]
+                }
+
+                selectedPhones.push(obj);
+            }
+        });
     });
+
+    console.log("=============selectedPhones start================");
+    console.log(selectedPhones);
+    console.log("=============selectedPhones end================");
+
+    var res = {
+        "attachment":{
+        "type":"template",
+            "payload":{
+                "template_type":"generic",
+                "elements": selectedPhones
+            }
+        }
+    }
+
+    return res;
 }
 
 module.exports = {
