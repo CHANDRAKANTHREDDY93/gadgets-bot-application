@@ -9,9 +9,6 @@ const PAGE_ACCESS_TOKEN = 'EAAc307m3bcsBAHJMJVTzqo63OeQTJoN2hE7s3TDucmDVUqvRZCzj
 var handleMessage = function (sender_psid, received_message) {
 
     var response;
-    console.log("=======received_message=======");
-    console.log(received_message);
-
 
     // Check if the message contains text
     if (received_message.quick_reply) {
@@ -33,13 +30,12 @@ var handlePostback = function (sender_psid, received_postback) {
     // Get the payload for the postback
     var payload = received_postback.payload;
     var title = received_postback.title;
-    console.log("=======received_postback Start=======");
-    console.log(received_postback);
-    console.log("=======received_postback End=======");
     // Set the response based on the postback payload
     if (payload === 'PHONE_PAYLOAD') {
         response = getBrandPhones(title);
-    } else {
+    } else if(payload.includes("VIEW_DETAILS") || payload.includes("BUY_PHONE")){
+        console.log("Got you phone name");
+    } else{
         response = getResponse(title);
     }
     // Send the message to acknowledge the postback
