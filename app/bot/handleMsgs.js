@@ -7,6 +7,9 @@ const PAGE_ACCESS_TOKEN = 'EAAc307m3bcsBAHJMJVTzqo63OeQTJoN2hE7s3TDucmDVUqvRZCzj
 var handleMessage = function (sender_psid, received_message) {
 
     var response;
+    console.log("=======received_message=======");
+    console.log(received_message);
+
 
     // Check if the message contains text
     if (received_message.text) {
@@ -26,8 +29,8 @@ var handlePostback = function (sender_psid, received_postback) {
     // Get the payload for the postback
     var payload = received_postback.payload;
     var title = received_postback.title;
-
-    console.log(payload);
+    console.log("=======received_postback=======");
+    console.log(received_postback);
     // Set the response based on the postback payload
     if (payload === 'PHONE_PAYLOAD') {
         response = getBrandPhones(title);
@@ -71,37 +74,37 @@ var getResponse = function(text) {
             "text": "Thats Awesome! Here are the different brands we offer :",
             "quick_replies":[
                 {
-                    "content_type":"text",
+                    "type":"postback",
                     "title":"Apple",
                     "payload":"PHONE_PAYLOAD",
                 },
                 {
-                    "content_type":"text",
+                    "type":"postback",
                     "title":"Blackberry",
                     "payload":"PHONE_PAYLOAD"
                 },
                 {
-                    "content_type":"text",
+                    "type":"postback",
                     "title":"Google",
                     "payload":"PHONE_PAYLOAD"
                 },
                 {
-                    "content_type":"text",
+                    "type":"postback",
                     "title":"HTC",
                     "payload":"PHONE_PAYLOAD"
                 },
                 {
-                    "content_type":"text",
+                    "type":"postback",
                     "title":"Motorolla",
                     "payload":"PHONE_PAYLOAD"
                 },
                 {
-                    "content_type":"text",
+                    "type":"postback",
                     "title":"Samsung",
                     "payload":"PHONE_PAYLOAD"
                 },
                 {
-                    "content_type":"text",
+                    "type":"postback",
                     "title":"Sony",
                     "payload":"PHONE_PAYLOAD"
                 }
