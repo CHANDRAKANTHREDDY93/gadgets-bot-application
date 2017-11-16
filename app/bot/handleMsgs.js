@@ -51,9 +51,9 @@ var callSendAPI = function(sender_psid, response) {
                             "subtitle":"At this point we support only phones. We\'ve got the right phone for everyone.",
                             "buttons":[
                                 {
-                                    "type":"postback",
-                                    "title":"View Website",
-                                    "payload":"DEVELOPER_DEFINED_PAYLOAD"
+                                    "type":"web_url",
+                                    "url":"https://gadgets-bot.herokuapp.com",
+                                    "title":"View Website"
                                 },{
                                     "type":"postback",
                                     "title":"Start Shopping",
