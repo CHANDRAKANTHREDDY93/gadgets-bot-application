@@ -348,8 +348,6 @@ var goToCart = function(list){
     var dt = new Date();
     var utcDate = dt.getTime().toString();
 
-    console.log(typeof utcDate);
-
     var subTotal = 0;
 
     console.log("====list====");
@@ -370,10 +368,12 @@ var goToCart = function(list){
 
 
 
-    var shipping_cost = 7;
-    var total_tax = (subTotal * 5.2) / 100;
+    var shipping_cost = Number(7);
+    var total_tax = Number((subTotal * 5.2) / 100);
 
-    console.log(subTotal + ' ' + shipping_cost + ' ' + total_tax + ' ' + dt);
+
+
+    console.log(typeof subTotal + ' ' + typeof shipping_cost + ' ' + typeof total_tax + ' ' + typeof utcDate);
 
     var cartObj = {
         "attachment":{
@@ -385,7 +385,7 @@ var goToCart = function(list){
                 "currency":"USD",
                 "payment_method":"Visa 2345",
                 "order_url":"http://petersapparel.parseapp.com/order?order_id=123456",
-                "timestamp":utcDate,
+                "timestamp":1428444852,
                 "address":{
                     "street_1":"1 Hacker Way",
                     "street_2":"",
@@ -396,7 +396,7 @@ var goToCart = function(list){
                 },
                 "summary":{
                     "subtotal":34.67,
-                    "shipping_cost":54.87,
+                    "shipping_cost":shipping_cost,
                     "total_tax":67.44,
                     "total_cost":56.14
                 },
