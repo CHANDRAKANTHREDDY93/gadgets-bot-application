@@ -7,9 +7,8 @@ var handleMessage = function (sender_psid, received_message) {
     if (received_message.text) {
 
         // Create the payload for a basic text message
-        response = {
-            "text": 'You sent the message:' + received_message.text + ': ' + sender_psid
-        }
+
+        response = getResponse(received_message.text);
     }
 
     // Sends the response message
@@ -54,6 +53,46 @@ var callSendAPI = function(sender_psid, response) {
             console.error("Unable to send message:" + err);
         }
     });
+}
+
+var getResponse = function(text) {
+    var response;
+
+    response = {
+        "attachment":{
+            "type":"template",
+            "payload":{
+            "template_type":"generic",
+                "elements":[
+                    {
+                        "title":"Welcome to Gadgets application",
+                        "image_url":"./../../public/images/phones3.png",
+                        "subtitle":"At this point we support only phones. We\'ve got the right phone for everyone.",
+                        "default_action": {
+                            "type": "web_url",
+                            "url": "https://gadgets-bot.herokuapp.com",
+                            "messenger_extensions": true,
+                            "webview_height_ratio": "tall",
+                            "fallback_url": "https://google.com"
+                        },
+                        "buttons":[
+                            {
+                                "type":"web_url",
+                                "url":"https://gadgets-bot.herokuapp.com",
+                                "title":"View Website"
+                            },{
+                                "type":"postback",
+                                "title":"Start Shopping",
+                                "payload":"DEVELOPER_DEFINED_PAYLOAD"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+
+    return response;
 }
 
 module.exports = {
