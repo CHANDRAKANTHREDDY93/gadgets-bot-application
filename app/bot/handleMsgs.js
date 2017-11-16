@@ -350,10 +350,10 @@ var goToCart = function(list){
 
     var subTotal = 0;
 
-
+    console.log("====list====");
     console.log(list);
     var elementArray = [];
-
+    
     if(list.list.length > 0){
         list.list.forEach(function(item){
             console.log(item);
