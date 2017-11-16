@@ -370,6 +370,8 @@ var goToCart = function(list){
     var shipping_cost = 7;
     var total_tax = (subTotal * 5.2) / 100;
 
+    console.log(subTotal + ' ' + shipping_cost + ' ' + total_tax + ' ' + dt);
+
     var cartObj = {
         "attachment":{
             "type":"template",
