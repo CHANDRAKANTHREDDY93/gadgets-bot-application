@@ -39,7 +39,39 @@ var callSendAPI = function(sender_psid, response) {
         "recipient": {
             "id": sender_psid
         },
-        "message": response
+        "message": {
+            "attachment":{
+                "type":"template",
+                "payload":{
+                    "template_type":"generic",
+                    "elements":[
+                        {
+                            "title":"Welcome to Gadgets application",
+                            "image_url":"./../../public/images/phones3.png",
+                            "subtitle":"At this point we support only phones. We\'ve got the right phone for everyone.",
+                            "default_action": {
+                                "type": "web_url",
+                                "url": "https://gadgets-bot.herokuapp.com",
+                                "messenger_extensions": true,
+                                "webview_height_ratio": "tall",
+                                "fallback_url": "https://google.com"
+                            },
+                            "buttons":[
+                                {
+                                    "type":"web_url",
+                                    "url":"https://gadgets-bot.herokuapp.com",
+                                    "title":"View Website"
+                                },{
+                                    "type":"postback",
+                                    "title":"Start Shopping",
+                                    "payload":"DEVELOPER_DEFINED_PAYLOAD"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        }
     };
 
     // Send the HTTP request to the Messenger Platform
@@ -50,7 +82,13 @@ var callSendAPI = function(sender_psid, response) {
         "json": request_body
     }, function(err, res, body) {
         if (!err) {
+            console.log("===================");
+            console.log(res);
+            console.log("===================");
+            console.log(body);
+            console.log("===================");
             console.log('message sent!')
+            console.log("===================");
         } else {
             console.error("Unable to send message:" + err);
         }
