@@ -368,9 +368,9 @@ var goToCart = function(list){
 
     subTotal = Number(subTotal);
     var shipping_cost = Number(7);
-    var total_tax = Number((subTotal * 5.2) / 100);
+    var total_tax = (subTotal * 5.2) / 100;
     total_tax = Number(total_tax);
-    total_cost = subTotal + shipping_cost + total_tax;
+    var total_cost = subTotal + shipping_cost + total_tax;
     total_cost = Number(total_cost);
 
 
@@ -399,7 +399,7 @@ var goToCart = function(list){
                     "subtotal":subTotal,
                     "shipping_cost":shipping_cost,
                     "total_tax": total_tax,
-                    "total_cost": total_cost
+                    "total_cost": 544.23
                 },
                 "adjustments":[
                     {
