@@ -354,7 +354,7 @@ var goToCart = function(list){
     console.log(list);
     var elementArray = [];
 
-    if(list.list.length > 1){
+    if(list.list.length > 0){
         list.list.forEach(function(item){
             console.log(item);
             console.log(subTotal);
