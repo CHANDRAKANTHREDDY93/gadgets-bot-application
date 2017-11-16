@@ -140,18 +140,29 @@ var getResponse = function(text) {
 }
 
 var getBrandPhones = function(title) {
+    console.log("=======Inside Get Brand Phones function======");
+
+
+    // direct way
+    client.get("http://remote.site/rest/xml/method", function (data, response) {
+        // parsed response body as js object
+        console.log(data);
+        // raw response
+        console.log(response);
+        console.log("=======GET RESPONSE DIRECT======");
+    });
 
     // registering remote methods
     client.registerMethod("jsonMethod", "https://gadgets-bot.herokuapp.com/api/getPhones", "GET");
 
     client.methods.jsonMethod(function (data, response) {
         // parsed response body as js object
-        console.log("=======GET RESPONSE======")
+        console.log("=======GET RESPONSE======");
         console.log(data);
-        console.log("=======GET DATA END======")
+        console.log("=======GET DATA END======");
         // raw response
         console.log(response);
-        console.log("=======GET RESPONSE END======")
+        console.log("=======GET RESPONSE END======");
     });
 }
 
