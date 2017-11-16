@@ -346,7 +346,7 @@ var AddItemsToCartList = function(brand, phone, price, image, qty, sender_id) {
 var goToCart = function(list){
 
     var dt = new Date();
-    var utcDate = dt.toUTCString();
+    var utcDate = dt.utcDate();
 
     var subTotal = 0;
 
@@ -384,7 +384,7 @@ var goToCart = function(list){
                 "currency":"USD",
                 "payment_method":"Visa 2345",
                 "order_url":"http://petersapparel.parseapp.com/order?order_id=123456",
-                "timestamp":dt,
+                "timestamp":utcDate,
                 "address":{
                     "street_1":"1 Hacker Way",
                     "street_2":"",
