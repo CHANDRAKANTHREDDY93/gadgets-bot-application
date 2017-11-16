@@ -355,6 +355,8 @@ var goToCart = function(list){
     var elementArray = []
 
     list.list.forEach(function(item){
+        console.log(item);
+        console.log(subTotal);
         var elementsObj = {
             "title":item.brand + ' ' + item.phone,
             "quantity":item.quantity,
