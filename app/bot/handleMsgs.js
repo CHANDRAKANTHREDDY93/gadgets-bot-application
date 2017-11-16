@@ -191,8 +191,7 @@ var getBrandPhones = function(title, sender_psid) {
                 "type":"template",
                 "payload":{
                     "template_type":"generic",
-                    "elements": selectedPhones,
-                    "is_reusable": true
+                    "elements": selectedPhones
                 }
             }
         }
