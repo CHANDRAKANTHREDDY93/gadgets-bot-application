@@ -53,7 +53,9 @@ app.post('/webhook/', function(req, res) {
             // will only ever contain one message, so we get index 0
             var webhookEvent = entry.messaging[0];
             var sender_psid = webhookEvent.sender.id;
+            console.log("=========webhookEvent Start============");
             console.log(webhookEvent);
+            console.log("=========webhookEvent End============");
             if (webhookEvent.message) {
                 botMsgs.handleMessage(sender_psid, webhookEvent.message);
             } else if (webhookEvent.postback) {

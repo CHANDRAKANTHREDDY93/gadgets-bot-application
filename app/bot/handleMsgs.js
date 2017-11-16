@@ -33,8 +33,9 @@ var handlePostback = function (sender_psid, received_postback) {
     // Get the payload for the postback
     var payload = received_postback.payload;
     var title = received_postback.title;
-    console.log("=======received_postback=======");
+    console.log("=======received_postback Start=======");
     console.log(received_postback);
+    console.log("=======received_postback End=======");
     // Set the response based on the postback payload
     if (payload === 'PHONE_PAYLOAD') {
         response = getBrandPhones(title);
@@ -190,7 +191,8 @@ var getBrandPhones = function(title, sender_psid) {
                 "type":"template",
                 "payload":{
                     "template_type":"generic",
-                    "elements": selectedPhones
+                    "elements": selectedPhones,
+                    "is_reusable": true
                 }
             }
         }
