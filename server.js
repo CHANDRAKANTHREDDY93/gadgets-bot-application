@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var mongoose = require('mongoose');
 var config = require('./app/config');
+var request = require('request');
 
 var app = express();
 var PORT = process.env.PORT || 3000;
