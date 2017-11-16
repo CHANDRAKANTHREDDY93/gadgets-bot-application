@@ -394,8 +394,8 @@ var goToCart = function(list){
                 },
                 "summary":{
                     "subtotal":489.99,
-                    "shipping_cost":shipping_cost,
-                    "total_tax":total_tax,
+                    "shipping_cost":23.32,
+                    "total_tax":41.23,
                     "total_cost":56.14
                 },
                 "adjustments":[
