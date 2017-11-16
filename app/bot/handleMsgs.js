@@ -154,6 +154,9 @@ var getBrandPhones = function(title) {
     client.methods.jsonMethod(function (data, response) {
         data.forEach(function(phone){
             if(phone.brand === title){
+                console.log("===========Phone========");
+                console.log(phone.phone);
+                console.log("===================");
                 var obj = {
                     "title":phone.brand + ' ' + phone.phone,
                     "image_url":"https://gadgets-bot.herokuapp.com/public/images/" + phone.image,
