@@ -150,13 +150,13 @@ var getBrandPhones = function(title) {
 
 
     // direct way
-    client.get("http://remote.site/rest/xml/method", function (data, response) {
-        // parsed response body as js object
-        console.log(data);
-        // raw response
-        console.log(response);
-        console.log("=======GET RESPONSE DIRECT======");
-    });
+    // client.get("https://gadgets-bot.herokuapp.com/api/getPhones", function (data, response) {
+    //     // parsed response body as js object
+    //     console.log(data);
+    //     // raw response
+    //     console.log(response);
+    //     console.log("=======GET RESPONSE DIRECT======");
+    // });
 
     // registering remote methods
     client.registerMethod("jsonMethod", "https://gadgets-bot.herokuapp.com/api/getPhones", "GET");
