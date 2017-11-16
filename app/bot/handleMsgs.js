@@ -2,6 +2,8 @@ var request = require('request');
 var Client = require('node-rest-client').Client;
 var client = new Client();
 
+var phones = [];
+
 const PAGE_ACCESS_TOKEN = 'EAAc307m3bcsBAHJMJVTzqo63OeQTJoN2hE7s3TDucmDVUqvRZCzjK3FbYrmZBqqHZAA1DDWMB2XxL1PW724JLOb9tIBGCJZBUwlW1VmUFz3ZAWfLjp4aF4mdXTveJjFs8W74IdPZCFFJ4WFoeYVik3Jq50FIGUITsk2LZC61N8NKcZCVDqnNwEBL';
 
 var handleMessage = function (sender_psid, received_message) {
@@ -71,7 +73,7 @@ var getResponse = function(text) {
     var response;
     console.log("==========");
     console.log(text);
-    if(text === 'Start Shopping'){
+    if(text === 'Start Shopping' || text === 'Main Menu'){
         response = {
             "text": "Thats Awesome! Here are the different brands we offer :",
             "quick_replies":[
@@ -151,11 +153,12 @@ var getBrandPhones = function(title, sender_psid) {
     client.registerMethod("jsonMethod", "https://gadgets-bot.herokuapp.com/api/getPhones", "GET");
 
     client.methods.jsonMethod(function (data, response) {
+
+        phones = data;
+
+
         data.forEach(function(phone){
             if(phone.brand === title){
-                console.log("===========Phone========");
-                console.log(phone.phone);
-                console.log("===================");
                 var obj = {
                     "title":phone.brand + ' ' + phone.phone,
                     "image_url":"https://gadgets-bot.herokuapp.com/public/images/" + phone.image,
@@ -169,6 +172,12 @@ var getBrandPhones = function(title, sender_psid) {
                             "type":"postback",
                             "title":"Buy",
                             "payload":"DEVELOPER_DEFINED_PAYLOAD"
+                        },
+                        {
+                            "type":"postback",
+                            "title":"Main Menu",
+                            "details": phone,
+                            "payload":"DEVELOPER_DEFINED_PAYLOAD"
                         }
                     ]
                 }
@@ -176,10 +185,6 @@ var getBrandPhones = function(title, sender_psid) {
                 selectedPhones.push(obj);
             }
         });
-
-        console.log("=============selectedPhones start================");
-        console.log(selectedPhones);
-        console.log("=============selectedPhones end================");
 
         var res = {
             "attachment":{
