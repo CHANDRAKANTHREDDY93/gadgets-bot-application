@@ -15,7 +15,7 @@ var handleMessage = function (sender_psid, received_message) {
         if(received_message.quick_reply.payload === 'PHONE_PAYLOAD') {
             getBrandPhones(received_message.text, sender_psid);
         } else if(received_message.quick_reply.payload.includes('QUANTITY')) {
-            var resQty = payload.split("_");
+            var resQty = received_message.quick_reply.payload.split("_");
             var typeQty = resQty[0];
             var brandQty = resQty[1];
             var phoneQty = resQty[2];
