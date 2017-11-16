@@ -354,8 +354,6 @@ var goToCart = function(list){
     console.log(list);
     var elementArray = [];
     list.list.forEach(function(item){
-        console.log(item);
-        console.log(subTotal);
         var elementsObj = {
             "title":item.brand + ' ' + item.phone,
             "quantity":item.quantity,
@@ -385,7 +383,7 @@ var goToCart = function(list){
                 "currency":"USD",
                 "payment_method":"Visa 2345",
                 "order_url":"http://petersapparel.parseapp.com/order?order_id=123456",
-                "timestamp":utcDate,
+                "timestamp":1428444852,
                 "address":{
                     "street_1":"1 Hacker Way",
                     "street_2":"",
