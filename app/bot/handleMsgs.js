@@ -74,37 +74,37 @@ var getResponse = function(text) {
             "text": "Thats Awesome! Here are the different brands we offer :",
             "quick_replies":[
                 {
-                    "type":"postback",
+                    "content_type":"text",
                     "title":"Apple",
                     "payload":"PHONE_PAYLOAD",
                 },
                 {
-                    "type":"postback",
+                    "content_type":"text",
                     "title":"Blackberry",
                     "payload":"PHONE_PAYLOAD"
                 },
                 {
-                    "type":"postback",
+                    "content_type":"text",
                     "title":"Google",
                     "payload":"PHONE_PAYLOAD"
                 },
                 {
-                    "type":"postback",
+                    "content_type":"text",
                     "title":"HTC",
                     "payload":"PHONE_PAYLOAD"
                 },
                 {
-                    "type":"postback",
+                    "content_type":"text",
                     "title":"Motorolla",
                     "payload":"PHONE_PAYLOAD"
                 },
                 {
-                    "type":"postback",
+                    "content_type":"text",
                     "title":"Samsung",
                     "payload":"PHONE_PAYLOAD"
                 },
                 {
-                    "type":"postback",
+                    "content_type":"text",
                     "title":"Sony",
                     "payload":"PHONE_PAYLOAD"
                 }
