@@ -347,6 +347,7 @@ var goToCart = function(list){
 
     var dt = new Date();
     var utcDate = dt.getTime();
+    console.log(typeof utcDate);
 
     var subTotal = 0;
 
