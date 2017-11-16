@@ -47,7 +47,7 @@ var callSendAPI = function(sender_psid, response) {
                     "elements":[
                         {
                             "title":"Welcome to Gadgets application",
-                            "image_url":"./public/images/phones3.png",
+                            "image_url":"https://gadgets-bot.herokuapp.com/public/images/phones3.png",
                             "subtitle":"At this point we support only phones. We\'ve got the right phone for everyone.",
                             "buttons":[
                                 {
