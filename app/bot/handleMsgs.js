@@ -39,7 +39,69 @@ var callSendAPI = function(sender_psid, response) {
         "recipient": {
             "id": sender_psid
         },
-        "message": {
+        "message": response
+    };
+
+    // Send the HTTP request to the Messenger Platform
+    request({
+        "uri": "https://graph.facebook.com/v2.6/me/messages",
+        "qs": { "access_token": PAGE_ACCESS_TOKEN },
+        "method": "POST",
+        "json": request_body
+    }, function(err, res, body) {
+        if (!err) {
+            console.log('message sent!')
+        } else {
+            console.error("Unable to send message:" + err);
+        }
+    });
+}
+
+var getResponse = function(text) {
+    var response;
+    if(text === 'Start Shopping'){
+        response = {
+            "text": "Thats Awesome! Here are the different brands of phones we offer :",
+            "quick_replies":[
+                {
+                    "content_type":"text",
+                    "title":"Apple",
+                    "payload":"<POSTBACK_PAYLOAD>",
+                },
+                {
+                    "content_type":"text",
+                    "title":"Blackberry",
+                    "payload":"<POSTBACK_PAYLOAD>"
+                },
+                {
+                    "content_type":"text",
+                    "title":"Google",
+                    "payload":"<POSTBACK_PAYLOAD>"
+                },
+                {
+                    "content_type":"text",
+                    "title":"HTC",
+                    "payload":"<POSTBACK_PAYLOAD>"
+                },
+                {
+                    "content_type":"text",
+                    "title":"Motorolla",
+                    "payload":"<POSTBACK_PAYLOAD>"
+                },
+                {
+                    "content_type":"text",
+                    "title":"Samsung",
+                    "payload":"<POSTBACK_PAYLOAD>"
+                },
+                {
+                    "content_type":"text",
+                    "title":"Sony",
+                    "payload":"<POSTBACK_PAYLOAD>"
+                }
+            ]
+        }
+    } else {
+        response = {
             "attachment":{
                 "type":"template",
                 "payload":{
@@ -63,64 +125,6 @@ var callSendAPI = function(sender_psid, response) {
                         }
                     ]
                 }
-            }
-        }
-    };
-
-    // Send the HTTP request to the Messenger Platform
-    request({
-        "uri": "https://graph.facebook.com/v2.6/me/messages",
-        "qs": { "access_token": PAGE_ACCESS_TOKEN },
-        "method": "POST",
-        "json": request_body
-    }, function(err, res, body) {
-        if (!err) {
-            console.log("===================");
-            console.log(res);
-            console.log("===================");
-            console.log(body);
-            console.log("===================");
-            console.log('message sent!')
-            console.log("===================");
-        } else {
-            console.error("Unable to send message:" + err);
-        }
-    });
-}
-
-var getResponse = function(text) {
-    var response;
-
-    response = {
-        "attachment":{
-            "type":"template",
-            "payload":{
-            "template_type":"generic",
-                "elements":[
-                    {
-                        "title":"Welcome to Gadgets application",
-                        "image_url":"./../../public/images/phones3.png",
-                        "subtitle":"At this point we support only phones. We\'ve got the right phone for everyone.",
-                        "default_action": {
-                            "type": "web_url",
-                            "url": "https://gadgets-bot.herokuapp.com",
-                            "messenger_extensions": true,
-                            "webview_height_ratio": "tall",
-                            "fallback_url": "https://google.com"
-                        },
-                        "buttons":[
-                            {
-                                "type":"web_url",
-                                "url":"https://gadgets-bot.herokuapp.com",
-                                "title":"View Website"
-                            },{
-                                "type":"postback",
-                                "title":"Start Shopping",
-                                "payload":"DEVELOPER_DEFINED_PAYLOAD"
-                            }
-                        ]
-                    }
-                ]
             }
         }
     }
