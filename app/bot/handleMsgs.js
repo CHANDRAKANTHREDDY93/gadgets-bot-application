@@ -366,7 +366,7 @@ var goToCart = function(list){
         elementArray.push(elementsObj);
     });
 
-
+    subTotal = Number(subTotal);
 
     var shipping_cost = Number(7);
     var total_tax = Number((subTotal * 5.2) / 100);
@@ -395,9 +395,9 @@ var goToCart = function(list){
                     "country":"US"
                 },
                 "summary":{
-                    "subtotal":34.67,
+                    "subtotal":subTotal,
                     "shipping_cost":shipping_cost,
-                    "total_tax":total_tax,
+                    "total_tax":43.23,
                     "total_cost":56.14
                 },
                 "adjustments":[
