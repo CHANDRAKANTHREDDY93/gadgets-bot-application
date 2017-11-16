@@ -177,23 +177,24 @@ var getBrandPhones = function(title) {
                 selectedPhones.push(obj);
             }
         });
-    });
 
-    console.log("=============selectedPhones start================");
-    console.log(selectedPhones);
-    console.log("=============selectedPhones end================");
+        console.log("=============selectedPhones start================");
+        console.log(selectedPhones);
+        console.log("=============selectedPhones end================");
 
-    var res = {
-        "attachment":{
-        "type":"template",
-            "payload":{
-                "template_type":"generic",
-                "elements": selectedPhones
+        var res = {
+            "attachment":{
+                "type":"template",
+                "payload":{
+                    "template_type":"generic",
+                    "elements": selectedPhones
+                }
             }
         }
-    }
 
-    return res;
+        return res;
+
+    });
 }
 
 module.exports = {
