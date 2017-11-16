@@ -48,17 +48,9 @@ var callSendAPI = function(sender_psid, response) {
                         {
                             "title":"Welcome to Gadgets application",
                             "subtitle":"At this point we support only phones. We\'ve got the right phone for everyone.",
-                            "default_action": {
-                                "type": "web_url",
-                                "url": "https://gadgets-bot.herokuapp.com",
-                                "messenger_extensions": true,
-                                "webview_height_ratio": "tall",
-                                "fallback_url": "https://google.com"
-                            },
                             "buttons":[
                                 {
                                     "type":"web_url",
-                                    "url":"https://gadgets-bot.herokuapp.com",
                                     "title":"View Website"
                                 },{
                                     "type":"postback",
