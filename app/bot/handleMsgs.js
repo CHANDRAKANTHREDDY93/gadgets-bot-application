@@ -24,9 +24,11 @@ var handleMessage = function (sender_psid, received_message) {
             var typeQty = resQty[0];
             var brandQty = resQty[1];
             var phoneQty = resQty[2];
-            response = getSpecificPhone(typeQty, brandQty, phoneQty);
+            var priceQty = resQty[3];
+            var imageQty = resQty[4];
+            response = getSpecificPhone(typeQty, brandQty, phoneQty, priceQty, imageQty);
 
-            senderCartItems = AddItemsToCartList(brandQty,phoneQty, parseInt(received_message.text),sender_psid);
+            senderCartItems = AddItemsToCartList(brandQty,phoneQty, priceQty, imageQty, parseInt(received_message.text),sender_psid);
         } else if(received_message.quick_reply.payload === 'DEVELOPER_DEFINED_PAYLOAD') {
             response = getResponse('Main Menu');
         } else if (received_message.quick_reply.payload == 'CART'){
@@ -55,7 +57,9 @@ var handlePostback = function (sender_psid, received_postback) {
         var type = res[0];
         var brand = res[1];
         var phone = res[2];
-        response = getSpecificPhone(type, brand, phone);
+        var price = res[3];
+        var image = res[4];
+        response = getSpecificPhone(type, brand, phone, price, image);
     } else {
         response = getResponse(title);
     }
@@ -185,7 +189,7 @@ var getBrandPhones = function(title, sender_psid) {
                         {
                             "type":"postback",
                             "title":"Add to Cart",
-                            "payload":"BUY-PHONE_"+phone.brand + '_' + phone.phone
+                            "payload":"BUY-PHONE_"+phone.brand + '_' + phone.phone + '_' + phone.price + '_' + phone.image
                         },
                         {
                             "type":"postback",
@@ -233,7 +237,7 @@ var getBrandPhones = function(title, sender_psid) {
     });
 }
 
-var getSpecificPhone = function(type, brand, phone){
+var getSpecificPhone = function(type, brand, phone, price, image){
     console.log(type + " " + brand + " " + phone);
     var msg;
 
@@ -244,27 +248,27 @@ var getSpecificPhone = function(type, brand, phone){
                 {
                     "content_type":"text",
                     "title":"1",
-                    "payload":"QUANTITY_" + brand + "_" + phone
+                    "payload":"QUANTITY_" + brand + "_" + phone + "_" + price + "_" + image
                 },
                 {
                     "content_type":"text",
                     "title":"2",
-                    "payload":"QUANTITY_" + brand + "_" + phone
+                    "payload":"QUANTITY_" + brand + "_" + phone + "_" + price + "_" + image
                 },
                 {
                     "content_type":"text",
                     "title":"3",
-                    "payload":"QUANTITY_" + brand + "_" + phone
+                    "payload":"QUANTITY_" + brand + "_" + phone + "_" + price + "_" + image
                 },
                 {
                     "content_type":"text",
                     "title":"4",
-                    "payload":"QUANTITY_" + brand + "_" + phone
+                    "payload":"QUANTITY_" + brand + "_" + phone + "_" + price + "_" + image
                 },
                 {
                     "content_type":"text",
                     "title":"5",
-                    "payload":"QUANTITY_" + brand + "_" + phone
+                    "payload":"QUANTITY_" + brand + "_" + phone + "_" + price + "_" + image
                 }
             ]
         }
@@ -289,14 +293,17 @@ var getSpecificPhone = function(type, brand, phone){
     return msg;
 }
 
-var AddItemsToCartList = function(brand, phone, qty, sender_id) {
+var AddItemsToCartList = function(brand, phone, price, image, qty, sender_id) {
     var isExist = false;
     var isPhoneExist = false;
     var senderIndex = -1;
     cartObj = {
         brand : brand,
         phone : phone,
-        quantity : qty
+        quantity : qty,
+        price : price,
+        tPrice : price * qty,
+        image : image
     }
 
     cartList.forEach(function(phoneList, index){
@@ -337,35 +344,43 @@ var AddItemsToCartList = function(brand, phone, qty, sender_id) {
 }
 
 var goToCart = function(list){
+
+    var dt = new Date();
+    var utcDate = dt.toUTCString();
+
+    var subTotal = 0;
+
+
     console.log(list);
     var elementArray = []
 
     list.list.forEach(function(item){
         var elementsObj = {
             "title":item.brand + ' ' + item.phone,
-            "subtitle":"100% Soft and Luxurious Cotton",
             "quantity":item.quantity,
-            "price":50,
+            "price":item.tPrice,
             "currency":"USD",
-            "image_url":"http://petersapparel.parseapp.com/img/whiteshirt.png"
+            "image_url":"https://gadgets-bot.herokuapp.com/public/images/" + item.image
         }
 
+        subTotal += item.tPrice;
         elementArray.push(elementsObj);
     });
 
-
+    var shipping_cost = 7;
+    var total_tax = (subTotal * 5.2) / 100;
 
     var cartObj = {
         "attachment":{
             "type":"template",
             "payload":{
                 "template_type":"receipt",
-                "recipient_name":"Stephane Crozatier",
+                "recipient_name":list.sender_id,
                 "order_number":"12345678902",
                 "currency":"USD",
                 "payment_method":"Visa 2345",
                 "order_url":"http://petersapparel.parseapp.com/order?order_id=123456",
-                "timestamp":"1428444852",
+                "timestamp":dt,
                 "address":{
                     "street_1":"1 Hacker Way",
                     "street_2":"",
@@ -375,10 +390,10 @@ var goToCart = function(list){
                     "country":"US"
                 },
                 "summary":{
-                    "subtotal":75.00,
-                    "shipping_cost":4.95,
-                    "total_tax":6.19,
-                    "total_cost":56.14
+                    "subtotal":subTotal,
+                    "shipping_cost":shipping_cost,
+                    "total_tax":total_tax,
+                    "total_cost":subTotal + shipping_cost + total_tax
                 },
                 "adjustments":[
                     {
