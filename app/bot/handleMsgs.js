@@ -14,6 +14,16 @@ var handleMessage = function (sender_psid, received_message) {
     if (received_message.quick_reply) {
         if(received_message.quick_reply.payload === 'PHONE_PAYLOAD') {
             getBrandPhones(received_message.text, sender_psid);
+        } else if(received_message.quick_reply.payload.includes('QUANTITY')) {
+            var resQty = payload.split("_");
+            var typeQty = resQty[0];
+            var brandQty = resQty[1];
+            var phoneQty = resQty[2];
+            response = getSpecificPhone(typeQty, brandQty, phoneQty);
+        } else if(received_message.quick_reply.payload == 'DEVELOPER_DEFINED_PAYLOAD') {
+            getResponse('Main Menu');
+        } else if (received_message.quick_reply.payload == 'CART'){
+
         }
     } else {
         // Create the payload for a basic text message
@@ -33,9 +43,13 @@ var handlePostback = function (sender_psid, received_postback) {
     // Set the response based on the postback payload
     if (payload === 'PHONE_PAYLOAD') {
         response = getBrandPhones(title);
-    } else if(payload.includes("VIEW_DETAILS") || payload.includes("BUY_PHONE")){
-        console.log("Got you phone name");
-    } else{
+    } else if(payload.includes("VIEW-DETAILS") || payload.includes("BUY-PHONE")){
+        var res = payload.split("_");
+        var type = res[0];
+        var brand = res[1];
+        var phone = res[2];
+        response = getSpecificPhone(type, brand, phone);
+    } else {
         response = getResponse(title);
     }
     // Send the message to acknowledge the postback
@@ -163,12 +177,8 @@ var getBrandPhones = function(title, sender_psid) {
                     "buttons":[
                         {
                             "type":"postback",
-                            "title":"View Details",
-                            "payload":"VIEW_DETAILS_"+phone.brand + '_' + phone.phone
-                        },{
-                            "type":"postback",
-                            "title":"Buy",
-                            "payload":"BUY_PHONE_"+phone.brand + '_' + phone.phone
+                            "title":"Add to Cart",
+                            "payload":"BUY-PHONE_"+phone.brand + '_' + phone.phone
                         },
                         {
                             "type":"postback",
@@ -214,6 +224,62 @@ var getBrandPhones = function(title, sender_psid) {
         });
 
     });
+}
+
+var getSpecificPhone = function(type, brand, phone){
+    console.log(type + " " + brand + " " + phone);
+    var msg;
+
+    if(type == 'BUY-PHONE') {
+       msg =  {
+            "text": "How many " + brand + " " + phone + " phones do you want to buy?",
+            "quick_replies":[
+                {
+                    "content_type":"text",
+                    "title":"1",
+                    "payload":"QUANTITY_" + brand + "_" + phone
+                },
+                {
+                    "content_type":"text",
+                    "title":"2",
+                    "payload":"QUANTITY_" + brand + "_" + phone
+                },
+                {
+                    "content_type":"text",
+                    "title":"3",
+                    "payload":"QUANTITY_" + brand + "_" + phone
+                },
+                {
+                    "content_type":"text",
+                    "title":"4",
+                    "payload":"QUANTITY_" + brand + "_" + phone
+                },
+                {
+                    "content_type":"text",
+                    "title":"5",
+                    "payload":"QUANTITY_" + brand + "_" + phone
+                }
+            ]
+        }
+    } else if(type == 'QUANTITY'){
+        msg =  {
+            "text": "Great! We added your item/s into the cart list.",
+            "quick_replies":[
+                {
+                    "content_type":"text",
+                    "title":"Continue Shopping",
+                    "payload":"DEVELOPER_DEFINED_PAYLOAD"
+                },
+                {
+                    "content_type":"text",
+                    "title":"Go to Cart",
+                    "payload":"CART"
+                }
+            ]
+        }
+    }
+
+    return msg;
 }
 
 module.exports = {
