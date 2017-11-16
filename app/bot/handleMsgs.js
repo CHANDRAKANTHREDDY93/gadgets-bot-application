@@ -47,7 +47,6 @@ var callSendAPI = function(sender_psid, response) {
                     "elements":[
                         {
                             "title":"Welcome to Gadgets application",
-                            "image_url":"./../../public/images/phones3.png",
                             "subtitle":"At this point we support only phones. We\'ve got the right phone for everyone.",
                             "default_action": {
                                 "type": "web_url",
