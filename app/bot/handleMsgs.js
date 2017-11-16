@@ -68,37 +68,37 @@ var getResponse = function(text) {
                 {
                     "content_type":"text",
                     "title":"Apple",
-                    "payload":"<POSTBACK_PAYLOAD>",
+                    "payload":"DEVELOPER_DEFINED_PAYLOAD",
                 },
                 {
                     "content_type":"text",
                     "title":"Blackberry",
-                    "payload":"<POSTBACK_PAYLOAD>"
+                    "payload":"DEVELOPER_DEFINED_PAYLOAD"
                 },
                 {
                     "content_type":"text",
                     "title":"Google",
-                    "payload":"<POSTBACK_PAYLOAD>"
+                    "payload":"DEVELOPER_DEFINED_PAYLOAD"
                 },
                 {
                     "content_type":"text",
                     "title":"HTC",
-                    "payload":"<POSTBACK_PAYLOAD>"
+                    "payload":"DEVELOPER_DEFINED_PAYLOAD"
                 },
                 {
                     "content_type":"text",
                     "title":"Motorolla",
-                    "payload":"<POSTBACK_PAYLOAD>"
+                    "payload":"DEVELOPER_DEFINED_PAYLOAD"
                 },
                 {
                     "content_type":"text",
                     "title":"Samsung",
-                    "payload":"<POSTBACK_PAYLOAD>"
+                    "payload":"DEVELOPER_DEFINED_PAYLOAD"
                 },
                 {
                     "content_type":"text",
                     "title":"Sony",
-                    "payload":"<POSTBACK_PAYLOAD>"
+                    "payload":"DEVELOPER_DEFINED_PAYLOAD"
                 }
             ]
         }
