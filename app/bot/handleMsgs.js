@@ -398,7 +398,7 @@ var goToCart = function(list){
                 "summary":{
                     "subtotal":subTotal,
                     "shipping_cost":shipping_cost,
-                    "total_tax": total_tax,
+                    "total_tax": 23.33,
                     "total_cost": 544.23
                 },
                 "adjustments":[
