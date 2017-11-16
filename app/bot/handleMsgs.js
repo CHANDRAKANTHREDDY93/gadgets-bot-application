@@ -176,7 +176,6 @@ var getBrandPhones = function(title, sender_psid) {
                         {
                             "type":"postback",
                             "title":"Main Menu",
-                            "details": phone,
                             "payload":"DEVELOPER_DEFINED_PAYLOAD"
                         }
                     ]
