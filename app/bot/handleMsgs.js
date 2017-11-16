@@ -393,7 +393,7 @@ var goToCart = function(list){
                     "country":"US"
                 },
                 "summary":{
-                    "subtotal":subTotal,
+                    "subtotal":489.99,
                     "shipping_cost":shipping_cost,
                     "total_tax":total_tax,
                     "total_cost":56.14
