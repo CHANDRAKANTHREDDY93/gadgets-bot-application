@@ -4,6 +4,11 @@ var client = new Client();
 
 var phones = [];
 
+var cartList = [];
+
+var senderCartItems = [];
+
+
 const PAGE_ACCESS_TOKEN = 'EAAc307m3bcsBAHJMJVTzqo63OeQTJoN2hE7s3TDucmDVUqvRZCzjK3FbYrmZBqqHZAA1DDWMB2XxL1PW724JLOb9tIBGCJZBUwlW1VmUFz3ZAWfLjp4aF4mdXTveJjFs8W74IdPZCFFJ4WFoeYVik3Jq50FIGUITsk2LZC61N8NKcZCVDqnNwEBL';
 
 var handleMessage = function (sender_psid, received_message) {
@@ -20,10 +25,12 @@ var handleMessage = function (sender_psid, received_message) {
             var brandQty = resQty[1];
             var phoneQty = resQty[2];
             response = getSpecificPhone(typeQty, brandQty, phoneQty);
-        } else if(received_message.quick_reply.payload == 'DEVELOPER_DEFINED_PAYLOAD') {
-            getResponse('Main Menu');
-        } else if (received_message.quick_reply.payload == 'CART'){
 
+            senderCartItems = AddItemsToCartList(brandQty,phoneQty, parseInt(received_message.text),sender_psid);
+        } else if(received_message.quick_reply.payload === 'DEVELOPER_DEFINED_PAYLOAD') {
+            response = getResponse('Main Menu');
+        } else if (received_message.quick_reply.payload == 'CART'){
+            response = goToCart(senderCartItems);
         }
     } else {
         // Create the payload for a basic text message
@@ -280,6 +287,115 @@ var getSpecificPhone = function(type, brand, phone){
     }
 
     return msg;
+}
+
+var AddItemsToCartList = function(brand, phone, qty, sender_id) {
+    var isExist = false;
+    var isPhoneExist = false;
+    var senderIndex = -1;
+    cartObj = {
+        brand : brand,
+        phone : phone,
+        quantity : qty
+    }
+
+    cartList.forEach(function(phoneList, index){
+        if(phoneList.sender_id === sender_id) {
+            isExist = true;
+            senderIndex = index;
+            cartList[index].list.forEach(function(listObject, index){
+                if(listObject.brand === brand && listObject.phone === phone) {
+                    isPhoneExist = true;
+
+                }
+            });
+
+            if(isPhoneExist){
+                cartList[index].list.push(cartObj);
+            } else {
+                cartList[index].list.push(cartObj);
+            }
+
+        }
+    });
+
+    if(isExist){
+
+    } else {
+        var completeCartList = {
+            sender_id : sender_id,
+            list : []
+        };
+        completeCartList.list.push(cartObj);
+
+        cartList.push(completeCartList);
+
+        senderIndex = cartList.length - 1;
+    }
+
+    return cartList[senderIndex];
+}
+
+var goToCart = function(list){
+    console.log(list);
+    var elementArray = []
+
+    list.list.forEach(function(item){
+        var elementsObj = {
+            "title":item.brand + ' ' + item.phone,
+            "subtitle":"100% Soft and Luxurious Cotton",
+            "quantity":item.quantity,
+            "price":50,
+            "currency":"USD",
+            "image_url":"http://petersapparel.parseapp.com/img/whiteshirt.png"
+        }
+
+        elementArray.push(elementsObj);
+    });
+
+
+
+    var cartObj = {
+        "attachment":{
+            "type":"template",
+            "payload":{
+                "template_type":"receipt",
+                "recipient_name":"Stephane Crozatier",
+                "order_number":"12345678902",
+                "currency":"USD",
+                "payment_method":"Visa 2345",
+                "order_url":"http://petersapparel.parseapp.com/order?order_id=123456",
+                "timestamp":"1428444852",
+                "address":{
+                    "street_1":"1 Hacker Way",
+                    "street_2":"",
+                    "city":"Menlo Park",
+                    "postal_code":"94025",
+                    "state":"CA",
+                    "country":"US"
+                },
+                "summary":{
+                    "subtotal":75.00,
+                    "shipping_cost":4.95,
+                    "total_tax":6.19,
+                    "total_cost":56.14
+                },
+                "adjustments":[
+                    {
+                        "name":"New Customer Discount",
+                        "amount":20
+                    },
+                    {
+                        "name":"$10 Off Coupon",
+                        "amount":10
+                    }
+                ],
+                "elements": elementArray
+            }
+        }
+    }
+
+    return cartObj;
 }
 
 module.exports = {
