@@ -22,15 +22,15 @@ var handlePostback = function (sender_psid, received_postback) {
 
     // Get the payload for the postback
     var payload = received_postback.payload;
-    console.log('========Payload Start==========================');
-    console.log(payload);
-    console.log('========Payload End==========================');
+    var title = received_postback.title;
+
+    response = getResponse(title);
     // Set the response based on the postback payload
-    if (payload === 'yes') {
-        response = { "text": "Thanks!" }
-    } else if (payload === 'no') {
-        response = { "text": "Oops, try sending another image." }
-    }
+    // if (payload === 'yes') {
+    //     response = { "text": "Thanks!" }
+    // } else if (payload === 'no') {
+    //     response = { "text": "Oops, try sending another image." }
+    // }
     // Send the message to acknowledge the postback
     callSendAPI(sender_psid, response);
 }
@@ -63,7 +63,7 @@ var getResponse = function(text) {
     var response;
     console.log("==========");
     console.log(text);
-    if(text === 'Hi'){
+    if(text === 'Start Shopping'){
         response = {
             "text": "Thats Awesome! Here are the different brands of phones we offer :",
             "quick_replies":[
