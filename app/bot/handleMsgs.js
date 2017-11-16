@@ -14,7 +14,7 @@ var handleMessage = function (sender_psid, received_message) {
     // Check if the message contains text
     if (received_message.quick_reply) {
         if(received_message.quick_reply.payload === 'PHONE_PAYLOAD') {
-            getBrandPhones(received_message.text);
+            getBrandPhones(received_message.text, sender_psid);
         }
     } else {
         // Create the payload for a basic text message
@@ -144,7 +144,7 @@ var getResponse = function(text) {
     return response;
 }
 
-var getBrandPhones = function(title) {
+var getBrandPhones = function(title, sender_psid) {
     var selectedPhones = [];
 
     // registering remote methods
