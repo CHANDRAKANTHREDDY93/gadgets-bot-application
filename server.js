@@ -4,6 +4,7 @@ var morgan = require('morgan');
 var mongoose = require('mongoose');
 var config = require('./app/config');
 var request = require('request');
+var botMsgs = require('./app/bot/handleMsgs');
 
 var app = express();
 var PORT = process.env.PORT || 3000;
@@ -52,11 +53,11 @@ app.post('/webhook/', function(req, res) {
             // will only ever contain one message, so we get index 0
             var webhookEvent = entry.messaging[0];
             var sender_psid = webhookEvent.sender.id;
-
+            console.log(webhookEvent);
             if (webhookEvent.message) {
-                handleMessage(sender_psid, webhookEvent.message);
+                botMsgs.handleMessage(sender_psid, webhookEvent.message);
             } else if (webhookEvent.postback) {
-                handlePostback(sender_psid, webhookEvent.postback);
+                botMsgs.handlePostback(sender_psid, webhookEvent.postback);
             }
         });
 
@@ -68,63 +69,6 @@ app.post('/webhook/', function(req, res) {
     }
 
 });
-
-function handleMessage(sender_psid, received_message) {
-
-    var response;
-
-    // Check if the message contains text
-    if (received_message.text) {
-
-        // Create the payload for a basic text message
-        response = {
-            "text": 'You sent the message:' + received_message.text + ': ' + sender_psid + '. Now send me an image!'
-        }
-    }
-
-    // Sends the response message
-    callSendAPI(sender_psid, response);
-}
-
-function handlePostback(sender_psid, received_postback) {
-    var response;
-
-    // Get the payload for the postback
-    var payload = received_postback.payload;
-
-    // Set the response based on the postback payload
-    if (payload === 'yes') {
-        response = { "text": "Thanks!" }
-    } else if (payload === 'no') {
-        response = { "text": "Oops, try sending another image." }
-    }
-    // Send the message to acknowledge the postback
-    callSendAPI(sender_psid, response);
-}
-
-function callSendAPI(sender_psid, response) {
-    // Construct the message body
-    var request_body = {
-        "recipient": {
-            "id": sender_psid
-        },
-        "message": response
-    };
-
-    // Send the HTTP request to the Messenger Platform
-    request({
-        "uri": "https://graph.facebook.com/v2.6/me/messages",
-        "qs": { "access_token": PAGE_ACCESS_TOKEN },
-        "method": "POST",
-        "json": request_body
-    }, function(err, res, body) {
-        if (!err) {
-            console.log('message sent!')
-        } else {
-            console.error("Unable to send message:" + err);
-        }
-    });
-}
 
 // Adds support for GET requests to our webhook
 app.get('/webhook/', function(req, res) {
