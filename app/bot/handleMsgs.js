@@ -367,10 +367,11 @@ var goToCart = function(list){
     });
 
     subTotal = Number(subTotal);
-
     var shipping_cost = Number(7);
     var total_tax = Number((subTotal * 5.2) / 100);
-
+    total_tax = Number(total_tax);
+    total_cost = subTotal + shipping_cost + total_tax;
+    total_cost = Number(total_cost);
 
 
     console.log(typeof subTotal + ' ' + typeof shipping_cost + ' ' + typeof total_tax + ' ' + typeof utcDate);
@@ -397,8 +398,8 @@ var goToCart = function(list){
                 "summary":{
                     "subtotal":subTotal,
                     "shipping_cost":shipping_cost,
-                    "total_tax":43.23,
-                    "total_cost":56.14
+                    "total_tax": total_tax,
+                    "total_cost": total_cost
                 },
                 "adjustments":[
                     {
