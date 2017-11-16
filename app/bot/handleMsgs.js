@@ -1,4 +1,7 @@
 var request = require('request');
+var Client = require('node-rest-client').Client;
+var client = new Client();
+
 const PAGE_ACCESS_TOKEN = 'EAAc307m3bcsBAHJMJVTzqo63OeQTJoN2hE7s3TDucmDVUqvRZCzjK3FbYrmZBqqHZAA1DDWMB2XxL1PW724JLOb9tIBGCJZBUwlW1VmUFz3ZAWfLjp4aF4mdXTveJjFs8W74IdPZCFFJ4WFoeYVik3Jq50FIGUITsk2LZC61N8NKcZCVDqnNwEBL';
 
 var handleMessage = function (sender_psid, received_message) {
@@ -24,13 +27,13 @@ var handlePostback = function (sender_psid, received_postback) {
     var payload = received_postback.payload;
     var title = received_postback.title;
 
-    response = getResponse(title);
+
     // Set the response based on the postback payload
-    // if (payload === 'yes') {
-    //     response = { "text": "Thanks!" }
-    // } else if (payload === 'no') {
-    //     response = { "text": "Oops, try sending another image." }
-    // }
+    if (payload === 'PHONE_PAYLOAD') {
+        response = getBrandPhones(title);
+    } else {
+        response = getResponse(title);
+    }
     // Send the message to acknowledge the postback
     callSendAPI(sender_psid, response);
 }
@@ -65,42 +68,42 @@ var getResponse = function(text) {
     console.log(text);
     if(text === 'Start Shopping'){
         response = {
-            "text": "Thats Awesome! Here are the different brands of phones we offer :",
+            "text": "Thats Awesome! Here are the different brands we offer :",
             "quick_replies":[
                 {
                     "content_type":"text",
                     "title":"Apple",
-                    "payload":"DEVELOPER_DEFINED_PAYLOAD",
+                    "payload":"PHONE_PAYLOAD",
                 },
                 {
                     "content_type":"text",
                     "title":"Blackberry",
-                    "payload":"DEVELOPER_DEFINED_PAYLOAD"
+                    "payload":"PHONE_PAYLOAD"
                 },
                 {
                     "content_type":"text",
                     "title":"Google",
-                    "payload":"DEVELOPER_DEFINED_PAYLOAD"
+                    "payload":"PHONE_PAYLOAD"
                 },
                 {
                     "content_type":"text",
                     "title":"HTC",
-                    "payload":"DEVELOPER_DEFINED_PAYLOAD"
+                    "payload":"PHONE_PAYLOAD"
                 },
                 {
                     "content_type":"text",
                     "title":"Motorolla",
-                    "payload":"DEVELOPER_DEFINED_PAYLOAD"
+                    "payload":"PHONE_PAYLOAD"
                 },
                 {
                     "content_type":"text",
                     "title":"Samsung",
-                    "payload":"DEVELOPER_DEFINED_PAYLOAD"
+                    "payload":"PHONE_PAYLOAD"
                 },
                 {
                     "content_type":"text",
                     "title":"Sony",
-                    "payload":"DEVELOPER_DEFINED_PAYLOAD"
+                    "payload":"PHONE_PAYLOAD"
                 }
             ]
         }
@@ -134,6 +137,22 @@ var getResponse = function(text) {
     }
 
     return response;
+}
+
+var getBrandPhones = function(title) {
+
+    // registering remote methods
+    client.registerMethod("jsonMethod", "https://gadgets-bot.herokuapp.com/api/getPhones", "GET");
+
+    client.methods.jsonMethod(function (data, response) {
+        // parsed response body as js object
+        console.log("=======GET RESPONSE======")
+        console.log(data);
+        console.log("=======GET DATA END======")
+        // raw response
+        console.log(response);
+        console.log("=======GET RESPONSE END======")
+    });
 }
 
 module.exports = {
