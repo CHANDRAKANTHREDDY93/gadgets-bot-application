@@ -352,7 +352,7 @@ var goToCart = function(list){
 
 
     console.log(list);
-    var elementArray = []
+    var elementArray = [];
 
     list.list.forEach(function(item){
         console.log(item);
