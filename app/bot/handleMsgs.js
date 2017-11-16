@@ -27,7 +27,7 @@ var handlePostback = function (sender_psid, received_postback) {
     var payload = received_postback.payload;
     var title = received_postback.title;
 
-
+    console.log(payload);
     // Set the response based on the postback payload
     if (payload === 'PHONE_PAYLOAD') {
         response = getBrandPhones(title);
