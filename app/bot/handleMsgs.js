@@ -384,7 +384,7 @@ var goToCart = function(list){
                 "currency":"USD",
                 "payment_method":"Visa 2345",
                 "order_url":"http://petersapparel.parseapp.com/order?order_id=123456",
-                "timestamp":dt,
+                "timestamp":1428444852,
                 "address":{
                     "street_1":"1 Hacker Way",
                     "street_2":"",
