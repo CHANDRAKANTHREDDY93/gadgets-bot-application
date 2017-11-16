@@ -14,9 +14,7 @@ var handleMessage = function (sender_psid, received_message) {
     // Check if the message contains text
     if (received_message.quick_reply) {
         if(received_message.quick_reply.payload === 'PHONE_PAYLOAD') {
-            //response = getBrandPhones(received_message.text);
-            console.log("Inside quick");
-            console.log(getBrandPhones(received_message.text));
+            getBrandPhones(received_message.text);
         }
     } else {
         // Create the payload for a basic text message
@@ -193,7 +191,26 @@ var getBrandPhones = function(title) {
             }
         }
 
-        return res;
+        var request_body = {
+            "recipient": {
+                "id": sender_psid
+            },
+            "message": res
+        };
+
+        // Send the HTTP request to the Messenger Platform
+        request({
+            "uri": "https://graph.facebook.com/v2.6/me/messages",
+            "qs": { "access_token": PAGE_ACCESS_TOKEN },
+            "method": "POST",
+            "json": request_body
+        }, function(err, res, body) {
+            if (!err) {
+                console.log('message sent!')
+            } else {
+                console.error("Unable to send message:" + err);
+            }
+        });
 
     });
 }
