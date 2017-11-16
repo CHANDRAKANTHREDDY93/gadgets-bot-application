@@ -59,8 +59,9 @@ var callSendAPI = function(sender_psid, response) {
 
 var getResponse = function(text) {
     var response;
+    console.log("==========");
+    console.log(text);
     if(text === 'Start Shopping'){
-        console.log('Inside start shopping')
         response = {
             "text": "Thats Awesome! Here are the different brands of phones we offer :",
             "quick_replies":[
