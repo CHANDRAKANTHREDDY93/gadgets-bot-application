@@ -14,8 +14,9 @@ var handleMessage = function (sender_psid, received_message) {
     // Check if the message contains text
     if (received_message.quick_reply) {
         if(received_message.quick_reply.payload === 'PHONE_PAYLOAD') {
-            console.log("Inside quick");
             response = getBrandPhones(received_message.text);
+            console.log("Inside quick");
+            console.log(response);
         }
     } else {
         // Create the payload for a basic text message
