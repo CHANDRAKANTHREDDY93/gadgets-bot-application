@@ -302,7 +302,7 @@ var AddItemsToCartList = function(brand, phone, price, image, qty, sender_id) {
         phone : phone,
         quantity : qty,
         price : price,
-        tPrice : price * qty,
+        tPrice : parseInt(price) * parseInt(qty),
         image : image
     }
 
@@ -394,10 +394,10 @@ var goToCart = function(list){
                     "country":"US"
                 },
                 "summary":{
-                    "subtotal":subTotal,
-                    "shipping_cost":shipping_cost,
-                    "total_tax":total_tax,
-                    "total_cost":subTotal + shipping_cost + total_tax
+                    "subtotal":75.00,
+                    "shipping_cost":4.95,
+                    "total_tax":6.19,
+                    "total_cost":56.14
                 },
                 "adjustments":[
                     {
